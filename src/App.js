@@ -1,19 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
-import Main from './components/Main.js'
-
+import React from 'react'
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Main />
-      </header>
-    </div>
-  );
+  const [mainData, setMainData] = React.useState([])
+  React.useEffect(() => {
+    async function getStuff() {
+      const res = await fetch("https://byabbe.se/on-this-day/10/4/events.json")
+      const data = await res.json()
+      setMainData(data.events)
+    }
+    getStuff()
+  }, [])
+  React.useEffect(() => {
+    console.log(mainData)
+  }, [])
+  console.log(mainData)
+
+  return <div>
+    {mainData.map(item => <div key={item.description}><p> <b>Year:</b> {item.year} </p> <p> <b>Event:</b> {item.description} </p> </div>)}
+  </div>
 }
 
 export default App;
