@@ -32,7 +32,9 @@ function App() {
     <Nav />
     <div className="mainBody">
       <h2 className="theDate"> {month} {dd} </h2>
-      <button onClick={flip}> {flipper ? "Newest to Oldest" : "Oldest to Newest"} </button>
+      <div className="buttonChron">
+        <button className="btn btn-info" onClick={flip}> {flipper ? "Newest to Oldest" : "Oldest to Newest"} </button>
+      </div>
       {mainData.map(item => <div className="main" key={item.description}><div className="card">
         <div className="card-header">
           <p>
