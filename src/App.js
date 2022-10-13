@@ -5,6 +5,7 @@ function App() {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
+  const [flipper, setFlipper] = React.useState(true)
   const today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
   const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -19,12 +20,32 @@ function App() {
     getEvents()
   }, [])
 
+  function flip() {
+    setMainData(mainData.reverse())
+    setFlipper(prevFlipper => !prevFlipper)
+    console.log(mainData)
+    console.log(flipper)
+  }
+
 
   return <div>
     <Nav />
     <div className="mainBody">
+      <button onClick={flip}> click me </button>
       <h2 className="theDate"> {month} {dd} </h2>
-      {mainData.map(item => <div className="main" key={item.description}><p> <b>Year:</b> {item.year} </p> <p> <b>Event:</b> {item.description} </p> </div>)}
+      {mainData.map(item => <div className="main" key={item.description}><div className="card">
+        <div className="card-header">
+          <p>
+            <b>Year:</b> {item.year}
+          </p>
+        </div>
+        <div className="card-body">
+          <blockquote className="blockquote mb-0">
+            <p> <b>Event:</b> {item.description}  </p>
+          </blockquote>
+        </div>
+      </div>
+      </div>)}
     </div>
   </div>
 }
