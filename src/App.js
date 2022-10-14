@@ -10,16 +10,22 @@ function App() {
   const today = new Date();
   const [dd, setDd] = React.useState(String(today.getDate()).padStart(2, '0'))
   const [mm, setMm] = React.useState(String(today.getMonth() + 1).padStart(2, '0'))
-  const month = monthNames[(mm - 1)]
+  const [formData, setFormData] = React.useState(
+    {
+      dd: dd,
+      mm: mm
+    }
+  )
+  const month = monthNames[(formData.mm - 1)]
   const [mainData, setMainData] = React.useState([])
   React.useEffect(() => {
     async function getEvents() {
-      const res = await fetch(`https://byabbe.se/on-this-day/${mm}/${dd}/events.json`)
+      const res = await fetch(`https://byabbe.se/on-this-day/${formData.mm}/${formData.dd}/events.json`)
       const data = await res.json()
       setMainData(data.events)
     }
     getEvents()
-  }, [])
+  }, [formData.mm, formData.dd])
 
   function flip() {
     setMainData(mainData.reverse())
@@ -29,40 +35,68 @@ function App() {
   }
 
 
+  function handleChange(event) {
+    const { value } = event.target
+    setMm(value)
+  }
+
+  function handleChangeOne(event) {
+    const { value } = event.target
+    setDd(value)
+  }
+
+  function handleChangeTwo(event) {
+    event.preventDefault()
+    setFormData({
+      mm: mm,
+      dd: dd
+    })
+  }
+
   return <div>
     <Nav />
     <div className="mainBody">
-      <h2 className="theDate"> {month} {dd} </h2>
+      <h2 className="theDate"> {month} {formData.dd} </h2>
 
-      <form>
+      <form onSubmit={handleChangeTwo}>
         <label htmlFor="favColor">Select a date to explore!</label>
         <br />
-        <select>
+        <select
+          id="mm"
+          value={mm}
+          name="mm"
+          onChange={handleChange}
+        >
           <option>Month</option>
-          <option value="01">January</option>
-          <option value="02">Febuary</option>
-          <option value="03">March</option>
-          <option value="04">April</option>
-          <option value="05">May</option>
-          <option value="06">June</option>
-          <option value="07">July</option>
-          <option value="08">August</option>
-          <option value="09">September</option>
+          <option value="1">January</option>
+          <option value="2">Febuary</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
           <option value="10">October</option>
           <option value="11">November</option>
           <option value="12">December</option>
         </select>
-        <select>
+        <select
+          id="dd"
+          value={dd}
+          name="dd"
+          onChange={handleChangeOne}
+        >
           <option>Day</option>
-          <option value="01">01</option>
-          <option value="02">02</option>
-          <option value="03">03</option>
-          <option value="04">04</option>
-          <option value="05">05</option>
-          <option value="06">06</option>
-          <option value="07">07</option>
-          <option value="08">08</option>
-          <option value="09">09</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
           <option value="10">10</option>
           <option value="11">11</option>
           <option value="12">12</option>
