@@ -59,7 +59,7 @@ function App() {
       <h2 className="theDate"><b> {month} {formData.dd} </b></h2>
 
       <form onSubmit={handleChangeTwo} className="formOne">
-        <label htmlFor="formData" className="formText"><b>Select a date to explore!</b></label>
+        <label htmlFor="formData" className="formText"><b>Or select a date to explore!</b></label>
         <br />
         <select
           id="mm"
