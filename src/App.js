@@ -56,10 +56,10 @@ function App() {
   return <div>
     <Nav />
     <div className="mainBody">
-      <h2 className="theDate"> {month} {formData.dd} </h2>
+      <h2 className="theDate"><b> {month} {formData.dd} </b></h2>
 
-      <form onSubmit={handleChangeTwo}>
-        <label htmlFor="favColor">Select a date to explore!</label>
+      <form onSubmit={handleChangeTwo} className="formOne">
+        <label htmlFor="formData" className="formText"><b>Select a date to explore!</b></label>
         <br />
         <select
           id="mm"
@@ -122,7 +122,7 @@ function App() {
         </select>
         <br />
         <br />
-        <input type="submit" value="Send it in" />
+        <input type="submit" value="Change Date" className="btn btn-info" />
       </form>
       <div className="buttonChron">
         <button className="btn btn-info" onClick={flip}> {flipper ? "Newest to Oldest" : "Oldest to Newest"} </button>
